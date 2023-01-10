@@ -35,6 +35,17 @@
         />
         <label for="check3" class="text-[15px]">Newbie</label>
       </div>
+      <div class="flex items-center gap-x-[11px] mb-3">
+        <input
+          type="radio"
+          id="check4"
+          class="w-[18px] h-[18px]"
+          value="all"
+          @change="changeData(userData.filter)"
+          v-model="userData.filter"
+        />
+        <label for="check4" class="text-[15px]">All</label>
+      </div>
     </div>
     <div class="mt-7">
       <h1 class="font-bold mb-3 text-2xl">Sorting</h1>

@@ -42,12 +42,13 @@ export default {
   data() {
     return {
       data: taskers,
-      sortingAccess:''
+      sortingAccess: false,
     };
   },
 
   methods: {
     changeData(item) {
+      this.sortingAccess = true;
       this.data = taskers;
       if (item == "supervisor") {
         this.data = this.data.filter((data) => {
@@ -63,31 +64,42 @@ export default {
           if (data.startDate != null) {
             return data.eliteTasker == false && data.supervisor == false;
           }
-          
         });
       }
+      else if(item=='all'){
+        this.sortingAccess=false
+        this.data=taskers
+      }
     },
-
-
 
     sortingDataRating(value) {
-
+      if (this.sortingAccess == true) {
         if (value == "ascending") {
-        this.data = this.data.sort((a, b) => a.averageRating - b.averageRating);
-      } else if (value == "descending") {
-        this.data = this.data.sort((a, b) => b.averageRating - a.averageRating);
+          this.data = this.data.sort(
+            (a, b) => a.averageRating - b.averageRating
+          );
+        } else if (value == "descending") {
+          this.data = this.data.sort(
+            (a, b) => b.averageRating - a.averageRating
+          );
+        }
+      } else {
+        alert("Please check one filter");
       }
-      
     },
     sortingDataCount(value) {
-      if (value == "ascending") {
-        this.data = this.data.sort(
-          (a, b) => a.completedTasks - b.completedTasks
-        );
-      } else if (value == "descending") {
-        this.data = this.data.sort(
-          (a, b) => b.completedTasks - a.completedTasks
-        );
+      if (this.sortingAccess == true) {
+        if (value == "ascending") {
+          this.data = this.data.sort(
+            (a, b) => a.completedTasks - b.completedTasks
+          );
+        } else if (value == "descending") {
+          this.data = this.data.sort(
+            (a, b) => b.completedTasks - a.completedTasks
+          );
+        }
+      } else {
+        alert("Please check one filter");
       }
     },
   },
